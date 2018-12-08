@@ -6,16 +6,17 @@ var keys = require("./keys");
 var inquirer = require("inquirer");
 var fs = require("fs");
 var spotify = new Spotify(keys.spotify);
-
+ 
 
 // concert-this
 // spotify-this-song
 // movie-this
 // do-what-it-says
 
+// set inquire prompt inside a function
 function liriChoice() {
     console.log("Welcome to LIRI")
-    console.log("")
+    console.log("Your personal Language Interpretation and Recognition Interface")
     inquirer
         .prompt([
             {
@@ -27,11 +28,12 @@ function liriChoice() {
             {
                 type: "input",
                 name: "title",
-                message: "What movie/band/artist do you want to search for?",
+                message: "What movie/band/artist do you want to search for? (if do-what-it-says, hit Enter)",
             }
         ]).then(function (answers) {
             console.log(answers);
             liriSwitch(answers.actionChoice, answers.title);
+            log(answers.actionChoice, answers.title)
 
 
         })
@@ -77,5 +79,80 @@ function concertThis(artist) {
         
 
 });
+};
+
+
+
+
+function spotifyThisSong(title) {
+    
+ 
+spotify.search({ type: 'track', query: title }, function(err, data) {
+  if (err) {
+    return console.log('Error occurred: ' + err);
+  }
+  var spotifyRes = data.tracks.items[0];
+
+console.log(spotifyRes.artists[0].name); 
+console.log(spotifyRes.name);
+console.log(spotifyRes.preview_url);
+console.log(spotifyRes.album.name);
+});
 }
 
+
+
+
+
+
+
+function movieThis(title) {
+    var queryURL = "https://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=trilogy";
+
+    request(queryURL, function(error, response, body) {
+        var data = JSON.parse(body);
+        // console.log(data)
+
+        if (data.length === 0) {
+            console.log("Sorry this movie isn't in our database")
+        } else {
+        console.log("Title: " + data.Title)
+        console.log(data.Year)
+        console.log(data.Ratings[1].Value)
+        console.log(data.imdbRating)
+        console.log(data.Country)
+        console.log(data.Language)
+        console.log(data.Plot)
+        console.log(data.Actors)
+        }
+    })
+
+}
+
+function doWhatItSays() {
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        if (error) {
+            throw error
+        }
+        console.log(data);
+        var randomTextArr =  data.split(",");
+        action = randomTextArr[0];
+        title = randomTextArr[1];
+        liriSwitch(action, title);
+    })
+
+}
+
+function log (action, title) {
+    var appendData;
+    if (title === undefined) {
+        appendData = action + "\n";
+    } else {
+        appendData = action + ", " + title + "\n";
+    }
+    fs.appendFile("log.txt", appendData, function(error) {
+        if (error) {
+            throw error
+        }
+    }) 
+}
