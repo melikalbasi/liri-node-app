@@ -14,29 +14,29 @@ Have node installed to your platform. If you do not have Node.js, click [here](h
 
 ### Installing
 
-Follow these steps to get LIRI up and running
+Follow these steps to get LIRI up and running:
 
-Go into the directory in which you have cloned LIRI 
+* Go into the directory in which you have cloned LIRI 
 
 ```
 $ cd node-liri-app/
 ```
 
-Type in node liri.js
+* Type in node liri.js
 
 ```
 $ node liri.js
 ```
 
-Follow the prompt by selecting an option from the list
+* Follow the prompt by selecting an option from the list
 
 ![LIRI](./assets/LIRIinterminal.png)
 
-Example of one of the options selected, in this case 'movie-this'
+* Example of one of the options selected, in this case 'movie-this'
 
 ![movie](./assets/movie.png)
 
-Hit enter, and ta-da!
+* Hit enter, and ta-da!
 
 ![results](./assets/results.png)
 
