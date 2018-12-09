@@ -85,7 +85,10 @@ function concertThis(artist) {
 
 // function for spotifiy-this-song action
 function spotifyThisSong(title) {
-    
+    // if no title is entered, default to bonnie tyler's "total eclipse of the heart"
+    if (!title) {
+        title = "Total Eclipse of the Heart"
+    }
  
 spotify.search({ type: 'track', query: title }, function(err, data) {
   if (err) {
