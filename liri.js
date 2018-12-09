@@ -32,9 +32,7 @@ function liriChoice() {
             console.log(answers);
             liriSwitch(answers.actionChoice, answers.title);
             // log input to external file "log.txt"
-            log(answers.actionChoice, answers.title)
-
-
+            log(answers.actionChoice, answers.title);
         })
 }
 
