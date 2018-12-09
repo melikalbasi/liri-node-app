@@ -1,3 +1,4 @@
+// our required files and keys set to variables 
 require("dotenv").config();
 var request = require("request");
 var moment = require("moment");
@@ -8,15 +9,12 @@ var fs = require("fs");
 var spotify = new Spotify(keys.spotify);
  
 
-// concert-this
-// spotify-this-song
-// movie-this
-// do-what-it-says
-
 // set inquire prompt inside a function
 function liriChoice() {
+    console.log("================================================================")
     console.log("Welcome to LIRI")
     console.log("Your personal Language Interpretation and Recognition Interface")
+    console.log("================================================================")
     inquirer
         .prompt([
             {
@@ -33,13 +31,17 @@ function liriChoice() {
         ]).then(function (answers) {
             console.log(answers);
             liriSwitch(answers.actionChoice, answers.title);
+            // log input to external file "log.txt"
             log(answers.actionChoice, answers.title)
 
 
         })
 }
+
+// call to function to prompt user to select a choice 
 liriChoice();
 
+// once selected, LIRI will go through our switch case to display response accordingly
 function liriSwitch(action, title) {
     switch (action) {
         case "concert-this":
@@ -58,8 +60,7 @@ function liriSwitch(action, title) {
 }
 
 
-
-
+// function for concert-this action
 function concertThis(artist) {
     var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
@@ -82,8 +83,7 @@ function concertThis(artist) {
 };
 
 
-
-
+// function for spotifiy-this-song action
 function spotifyThisSong(title) {
     
  
@@ -102,10 +102,7 @@ console.log(spotifyRes.album.name);
 
 
 
-
-
-
-
+// function for movie-this action
 function movieThis(title) {
     var queryURL = "https://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=trilogy";
 
@@ -129,6 +126,7 @@ function movieThis(title) {
 
 }
 
+// function for do-what-it-says function
 function doWhatItSays() {
     fs.readFile("random.txt", "utf8", function(error, data) {
         if (error) {
@@ -143,6 +141,7 @@ function doWhatItSays() {
 
 }
 
+// function to log user input to external file "log.txt"
 function log (action, title) {
     var appendData;
     if (title === undefined) {
