@@ -93,10 +93,10 @@ spotify.search({ type: 'track', query: title }, function(err, data) {
   }
   var spotifyRes = data.tracks.items[0];
 
-console.log(spotifyRes.artists[0].name); 
-console.log(spotifyRes.name);
-console.log(spotifyRes.preview_url);
-console.log(spotifyRes.album.name);
+console.log("Artist: " + spotifyRes.artists[0].name); 
+console.log("Song Title: " + spotifyRes.name);
+console.log("Preview URL: " + spotifyRes.preview_url);
+console.log("Ablum: " + spotifyRes.album.name);
 });
 }
 
@@ -108,19 +108,18 @@ function movieThis(title) {
 
     request(queryURL, function(error, response, body) {
         var data = JSON.parse(body);
-        // console.log(data)
 
         if (data.length === 0) {
             console.log("Sorry this movie isn't in our database")
         } else {
         console.log("Title: " + data.Title)
-        console.log(data.Year)
-        console.log(data.Ratings[1].Value)
-        console.log(data.imdbRating)
-        console.log(data.Country)
-        console.log(data.Language)
-        console.log(data.Plot)
-        console.log(data.Actors)
+        console.log("Released: " + data.Year)
+        console.log("Rotten Tomatoes Rating: " + data.Ratings[1].Value)
+        console.log("IMDb rating: " + data.imdbRating)
+        console.log("Country: " + data.Country)
+        console.log("Language: " + data.Language)
+        console.log("Plot: " + data.Plot)
+        console.log("Actors: " + data.Actors)
         }
     })
 
